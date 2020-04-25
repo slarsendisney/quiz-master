@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "gatsby";
 import Layout from "../components/layout";
-import SEO from "../components/seo";
 
 export default function lost() {
   return (
     <Layout>
-      <SEO title="404" />
       <div className="is-grey is-light-grey-bg">
         <div className="row container-small pad-20-t pad-20-b">
           <div className="col-xs-12 col-md-6 pad-10-l">

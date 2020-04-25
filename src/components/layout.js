@@ -6,15 +6,14 @@ import Logo from "../images/watermelon.png";
 const Layout = ({ children }) => {
   return (
     <>
-      <Header logo={Logo} />
+      <h2 className="margin-1-l">The Ultimate Quiz Tool ⚡️</h2>
       <main>{children}</main>
-      <Footer />
     </>
   );
 };
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;

@@ -1,22 +1,19 @@
 import React from "react";
-import { Hero, GetThis } from "sld-component-library";
 import Layout from "../components/layout";
-import SEO from "../components/seo";
-import SocketExample from "../components/SocketExample";
-import Places from "../data/Start.json";
-
+import Player from "../components/Player";
+import Lobby from "../components/Lobby";
 export default function Start() {
   return (
     <Layout>
-      <SEO title="Home" />
-      <div className="is-grey is-pink-bg">
-        <Hero places={Places} title="Watermelon" />
-      </div>
-      <div className="is-grey is-white-bg">
-        <GetThis flag="watermelon" />
-      </div>
       <div className="is-white is-light-grey-bg">
-        <SocketExample />
+        <div className="container-small row">
+          <div className="col-xs-12 col-md-9">
+            <Player />
+          </div>
+          <div className="col-xs-12 col-md-3">
+            <Lobby />
+          </div>
+        </div>
       </div>
     </Layout>
   );
