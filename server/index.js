@@ -30,12 +30,25 @@ server.listen(port, () =>
 );
 
 let questions = [
-  "When was the battle of Waterloo?",
-  "When was Bob Dylans birthday?",
+  { question_text: "When was the battle of Waterloo?", answer_text: "1815" },
+  { question_text: "When was Bob Dylans birthday?", answer_text: "Last week" },
 ];
+
 let count = 0;
 let lobby = [];
 let gameStarted = false;
+let phase = 0;
+let calcScores = () => {
+  lobby = lobby.map((person) => ({
+    ...person,
+    score: person.responses.reduce((acc, cur) => {
+      if (cur.correct) {
+        acc += 100;
+      }
+      return acc;
+    }, 0),
+  }));
+};
 const io = !dev
   ? require("socket.io")(server, {
       transports: ["xhr-polling"],
@@ -49,7 +62,7 @@ io.on("connection", function (socket) {
     data: {
       gameStarted,
       currentQuestion: {
-        question: questions[count],
+        question: questions[count].question_text,
         questionNumber: count + 1,
       },
       lobby,
@@ -65,7 +78,11 @@ io.on("connection", function (socket) {
       gameStarted = true;
       io.emit("action", {
         type: "startGame",
-        data: { question: questions[count], questionNumber: count + 1 },
+        data: {
+          question: questions[count].question_text,
+          questionNumber: count + 1,
+          answer: questions[count].answer_text,
+        },
       });
     }
     if (action.type === "server/increment") {
@@ -73,22 +90,65 @@ io.on("connection", function (socket) {
       count++;
       io.emit("action", {
         type: "question",
-        data: { question: questions[count], questionNumber: count + 1 },
+        data: {
+          question: questions[count].question_text,
+          questionNumber: count + 1,
+          answer: questions[count].answer_text,
+        },
+      });
+      phase = 0;
+      io.emit("action", {
+        type: "phase",
+        data: phase,
       });
     }
     if (action.type === "server/submit") {
       const personIndex = lobby.findIndex(
         (item) => item.socket_id === socket.id
       );
-      console.log(personIndex);
       lobby[personIndex].responses.push({
         questionNumber: action.data.questionNumber - 1,
-        response: action.data.question,
+        response: action.data.response,
       });
       socket.emit("action", {
         type: "submitted",
         data: "submitted",
       });
+      io.emit("action", {
+        type: "lobby",
+        data: lobby,
+      });
+      const allSubmitted = lobby.every(
+        (person) => person.responses[count] && person.responses[count].response
+      );
+      if (allSubmitted) {
+        phase = 1;
+        io.emit("action", {
+          type: "phase",
+          data: phase,
+        });
+      }
+    }
+
+    if (action.type === "server/timeup") {
+      phase = 1;
+      lobby.forEach((person) => {
+        if (!person.responses[count]) {
+          person.responses[count] = false;
+        }
+      });
+      io.emit("action", {
+        type: "phase",
+        data: phase,
+      });
+      io.emit("action", {
+        type: "lobby",
+        data: lobby,
+      });
+    }
+    if (action.type === "server/submitMarks") {
+      lobby = action.data;
+      calcScores();
       io.emit("action", {
         type: "lobby",
         data: lobby,
@@ -100,7 +160,12 @@ io.on("connection", function (socket) {
       if (personIndex > -1) {
         lobby[personIndex].socket_id = socket.id;
       } else {
-        lobby.push({ socket_id: socket.id, name: action.data, responses: [] });
+        lobby.push({
+          socket_id: socket.id,
+          name: action.data,
+          responses: [],
+          score: 0,
+        });
       }
 
       socket.emit("action", {

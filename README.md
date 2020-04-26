@@ -1,70 +1,30 @@
-# 🍉 Gatsby Watermelon Boilerplate
+# ScavengerQuizHunt
 
-A **GatsbyJS** boilerplate with **Redux** and **socket.io** all wrapped up nicely in an **Express** server. 
+# Create a quiz: 
+Master writes their list of questions
+Each question is a row in the first column of a Google Sheet
+They might also want to add some answers
+The answers are the 
+Import the questions to the front end
+# Start the game
+Master shares link to the participants ⚠️
+Participants are on the quiz page ✅
+Participants can set their name ✅
+Master sets themselves as Master ✅
+They go to their route /master ✅
+Master starts the quiz ✅
 
-### Quick Start
-
-```
-npx -p yo -p generator-sld -- yo sld:watermelon
-```
-
-##### What is Gatsby?
-
-_"Gatsby is a blazing fast modern site generator for React."_ 
-
-[Read the docs.](https://www.gatsbyjs.org/docs/)
-
-##### What is Redux?
-
-_"Redux is a predictable state container for JavaScript apps"_
-
-[Read the docs](https://redux.js.org/introduction/getting-started)
-
-##### What is Express?
-
-_"Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications."_
-
-[Read the docs.](https://expressjs.com/en/starter/hello-world.html)
+# Quizzing
+- Master starts question 1 ✅
+- Players enter an answer to question 1 ✅
+- Each player submits an answer to question 1 ✅
+- All players have submitted an answer or master ends question phase. 
+- Master marks question 1
+  - All participants can see answer ✅
+  - Master sets correct or incorrect for each player’s response
+- Master moves on to question 2 ✅
+- Players’ scores are updated
 
 
-##### Project Structure
-
-```
-gatsby-watermelon
-scripts
-┃ hello.js
-┣ server
-┃  ┗index.js
-┗ src
-   ┣ components
-   ┃ ┣ Hero.js
-   ┃ ┣ SocketExample.js
-   ┃ ┣ header.js
-   ┃ ┣ layout.js
-   ┃ ┗ seo.js
-   ┣ data
-   ┃ ┗ Start.json
-   ┣ images
-   ┃ ┣ watermelon.png
-   ┃ ┗ watermelon.svg
-   ┣ pages
-   ┃ ┣ 404.js
-   ┃ ┗ index.js
-   ┣ state
-   ┃ ┣ createStore.js
-   ┃ ┗ wrapWithProvider.js
-   ┗ styles
-     ┣ _flex.scss
-     ┣ border.scss
-     ┣ button.scss
-     ┣ colors.scss
-     ┣ global.scss
-     ┣ hero.scss
-     ┣ layout.scss
-     ┣ link.scss
-     ┣ margin_padding.scss
-     ┣ opacity.scss
-     ┗ vars.scss
-```
-
-This boilerplate was built with ❤️ by SLD. I try my best to maintain the project but if you notice any issues, or if you need any help - [hit me up!](https://sld.codes)
+## Known bugs
+- Users who join after a question has been submitted but not fully marked will be removed from the lobby.

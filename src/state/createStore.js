@@ -10,6 +10,7 @@ function reducer(
     gameStarted: false,
     lobby: [],
     submitted: false,
+    phase: 0,
   },
   action
 ) {
@@ -26,6 +27,8 @@ function reducer(
         {},
         { ...state, submitted: false, currentQuestion: action.data }
       );
+    case "phase":
+      return Object.assign({}, { ...state, phase: action.data });
     case "submitted":
       return Object.assign({}, { ...state, submitted: true });
     case "setName":

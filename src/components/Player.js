@@ -29,6 +29,7 @@ const SocketExample = ({
   currentQuestion,
   submitted,
   submitToServer,
+  phase,
 }) => {
   const [nameInput, setNameInput] = useState("");
 
@@ -55,15 +56,29 @@ const SocketExample = ({
         </div>
       ) : (
         <div className="col-xs-12">
-          <h2>Hi {name},</h2>
           {!gameStarted ? (
-            <h4>Waiting for game to begin...</h4>
+            <>
+              <h2>Hi {name},</h2>
+              <h4>Waiting for game to begin...</h4>
+            </>
           ) : (
             <>
-              {!submitted ? (
-                <Question {...currentQuestion} submission={submitToServer} />
+              {phase === 0 ? (
+                <>
+                  {!submitted ? (
+                    <Question
+                      {...currentQuestion}
+                      submission={submitToServer}
+                    />
+                  ) : (
+                    <h4>Thanks for your submission!</h4>
+                  )}
+                </>
               ) : (
-                <h4>Thanks for your submission!</h4>
+                <>
+                  <h4>The answer was...</h4>
+                  <h1>{currentQuestion.answer}</h1>
+                </>
               )}
             </>
           )}
@@ -73,15 +88,21 @@ const SocketExample = ({
   );
 };
 
-const mapStateToProps = ({ gameStarted, name, currentQuestion, submitted }) => {
-  return { gameStarted, name, currentQuestion, submitted };
+const mapStateToProps = ({
+  gameStarted,
+  name,
+  currentQuestion,
+  submitted,
+  phase,
+}) => {
+  return { gameStarted, name, currentQuestion, submitted, phase };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addToLobby: (name) => dispatch({ type: "server/join", data: name }),
-    submitToServer: (questionNumber, question) =>
-      dispatch({ type: "server/submit", data: { questionNumber, question } }),
+    submitToServer: (questionNumber, response) =>
+      dispatch({ type: "server/submit", data: { questionNumber, response } }),
   };
 };
 
