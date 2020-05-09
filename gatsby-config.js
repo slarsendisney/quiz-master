@@ -2,9 +2,9 @@ const path = require(`path`);
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Watermelon`,
-    description: `A boilerplate by SLD`,
-    author: `@sld`
+    title: `QuizMaster`,
+    description: `Lets get quizzing`,
+    author: `@sld, @mbp`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -12,8 +12,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        icon: `src/images/watermelon.png`
-      }
-    }
-  ]
+        icon: `src/images/quiz.png`,
+      },
+    },
+  ],
 };

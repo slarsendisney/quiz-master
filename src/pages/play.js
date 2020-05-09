@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../components/layout";
-import Master from "../components/Master";
+import Player from "../components/Player";
 import Lobby from "../components/Lobby";
 import SEO from "../components/seo";
 export default function Start() {
@@ -10,7 +10,7 @@ export default function Start() {
       <div className="is-white is-light-grey-bg">
         <div className="container row">
           <div className="col-xs-12 col-md-9">
-            <Master />
+            <Player />
           </div>
           <div className="col-xs-12 col-md-3">
             <Lobby />

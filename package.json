@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-watermelon",
+  "name": "QuizMaster",
   "private": true,
-  "description": "A GatsbyJS boilerplate with Redux and socket.io all wrapped up nicely in an Express server.",
+  "description": "Lets get quizzing.",
   "version": "0.1.0",
   "author": "Sam Larsen-Disney <s.larsendisney@gmail.com>",
   "dependencies": {

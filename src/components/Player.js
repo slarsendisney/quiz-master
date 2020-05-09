@@ -6,15 +6,15 @@ const Question = ({ question, questionNumber, submission }) => {
   const [questionInput, setQuestionInput] = useState("");
   const onChange = (e) => setQuestionInput(e.target.value);
   return (
-    <div className="is-pink-bg border-radius pad-5 row">
-      <h2 className="margin-0">{`${questionNumber}. ${question}`}</h2>
+    <div className="is-white-bg border-radius pad-5 row">
+      <h2 className="margin-0 margin-2-b">{`${questionNumber}. ${question}`}</h2>
       <input
-        className="input"
+        className="input  margin-2-b"
         onChange={onChange}
         value={questionInput}
       ></input>
       <button
-        className="bubble-button"
+        className="bubble-button border-radius"
         onClick={() => submission(questionNumber, questionInput)}
       >
         Submit
@@ -36,20 +36,22 @@ const SocketExample = ({
 
   const onChange = (e) => setNameInput(e.target.value);
   return (
-    <div className="row pad-20-t pad-20-b is-grey">
+    <div className="row is-grey pad-10-tb pad-3-lr">
       {!name ? (
         <div className="col-xs-12">
-          <h4>Please enter your name:</h4>
+          <h1 className="margin-0 margin-5-b">What's your name?</h1>
           <input
-            className="input"
+            className="input margin-5-b"
             placeholder="Bob Dylan"
             value={nameInput}
             onChange={onChange}
-          ></input>
+          />
           <button
-            className="bubble-button"
+            className="bubble-button border-radius "
             onClick={() => {
-              addToLobby(nameInput);
+              if (nameInput !== "") {
+                addToLobby(nameInput);
+              }
             }}
           >
             Submit
@@ -59,8 +61,8 @@ const SocketExample = ({
         <div className="col-xs-12">
           {!gameStarted ? (
             <>
-              <h2>Hi {name},</h2>
-              <h4>Waiting for game to begin...</h4>
+              <h1>Hi {name},</h1>
+              <h3>Waiting for game to begin...</h3>
             </>
           ) : (
             <>
@@ -72,19 +74,30 @@ const SocketExample = ({
                       submission={submitToServer}
                     />
                   ) : (
-                    <h4>Thanks for your submission!</h4>
+                    <>
+                      <h2>Thanks for your submission!</h2>
+                      <p>
+                        We're just waiting for everyone to finish or the master
+                        to end the question.
+                      </p>
+                    </>
                   )}
                 </>
               )}
               {phase === 1 && (
                 <>
-                  <h4>The answer was...</h4>
-                  <h1>{currentQuestion.answer}</h1>
+                  <h3>The answer was...</h3>
+                  <h1 className="is-hero-menu margin-0">
+                    {currentQuestion.answer}
+                  </h1>
+                  <p>
+                    Did you get it right? The master is marking your answer now!
+                  </p>
                 </>
               )}
               {phase === 2 && (
                 <>
-                  <h4>Quiz Complete!</h4>
+                  <h1>Quiz Complete!</h1>
                   <Podium />
                 </>
               )}

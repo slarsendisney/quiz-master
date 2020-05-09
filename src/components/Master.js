@@ -45,12 +45,17 @@ const SocketExample = ({
     increment();
   };
   return (
-    <div className="row container-small pad-20-t pad-20-b is-grey pad-10-l">
+    <div className="row is-grey pad-10-tb pad-3-lr">
       <div className="col-xs-12">
         {!gameStarted ? (
-          <button className="bubble-button" onClick={startGame}>
-            START GAME
-          </button>
+          <>
+            <h1 className="margin-0 margin-5-b">
+              When you're lobby has everyone in it, start the game!
+            </h1>
+            <button className="bubble-button border-radius" onClick={startGame}>
+              START GAME
+            </button>
+          </>
         ) : (
           <>
             {phase === 0 && (
@@ -64,49 +69,82 @@ const SocketExample = ({
             )}
             {phase === 1 && (
               <>
-                <h4>Submissions:</h4>
-                {answered.map((person, index) => (
-                  <div className="flex align-horizontal is-white-bg border-radius pad-5-lr margin-5-b">
-                    <h4 className="margin-5-r">
-                      {person.name} -{` "`}
-                      {
-                        person.responses[currentQuestion.questionNumber - 1]
-                          .response
-                      }
-                      {`"`}
-                    </h4>
-                    {typeof person.responses[currentQuestion.questionNumber - 1]
-                      .correct === "undefined" ? (
-                      <div>
-                        <button
-                          className="btn pad-2 border-radius is-green-bg margin-1-r"
-                          onClick={() => setCorrect(index, true)}
-                        >
-                          True
-                        </button>
-                        <button
-                          className="btn pad-2 border-radius is-pink-bg"
-                          onClick={() => setCorrect(index, false)}
-                        >
-                          False
-                        </button>
-                      </div>
-                    ) : (
-                      <h4>
-                        {person.responses[currentQuestion.questionNumber - 1]
-                          .correct
-                          ? "✅"
-                          : "🚫"}
-                      </h4>
-                    )}
+                <h2>Submissions:</h2>
+                {answered.length === 0 && (
+                  <div className="row is-white-bg border-radius pad-5-lr pad-2-tb margin-5-b">
+                    <h3>No submissions 😢 </h3>
                   </div>
+                )}
+                {answered.map((person, index) => (
+                  <>
+                    <div className="row pad-3-lr">
+                      <div className="col-xs-4">
+                        <h4>Name</h4>
+                      </div>
+                      <div className="col-xs-4">
+                        <h4>Answer</h4>
+                      </div>
+                      <div className="col-xs-4">
+                        <h4>Correct?</h4>
+                      </div>
+                    </div>
+                    <div className="row is-white-bg border-radius pad-5-lr pad-2-tb margin-5-b">
+                      <div className="col-xs-4 flex align-horizontal">
+                        <h4>
+                          <strong>{person.name}</strong>
+                        </h4>
+                      </div>
+                      <div className="col-xs-4 flex align-horizontal">
+                        <h4>
+                          {
+                            person.responses[currentQuestion.questionNumber - 1]
+                              .response
+                          }
+                        </h4>
+                      </div>
+                      <div className="col-xs-4 flex align-horizontal">
+                        {typeof person.responses[
+                          currentQuestion.questionNumber - 1
+                        ].correct === "undefined" ? (
+                          <div>
+                            <button
+                              className="btn pad-2 border-radius is-green-bg margin-1-r"
+                              onClick={() => setCorrect(index, true)}
+                            >
+                              True
+                            </button>
+                            <button
+                              className="btn pad-2 border-radius is-pink-bg"
+                              onClick={() => setCorrect(index, false)}
+                            >
+                              False
+                            </button>
+                          </div>
+                        ) : (
+                          <h4>
+                            {person.responses[
+                              currentQuestion.questionNumber - 1
+                            ].correct
+                              ? "✅"
+                              : "🚫"}
+                          </h4>
+                        )}
+                      </div>
+                    </div>
+                  </>
                 ))}
-                <h4>Failed to answer:</h4>
-                {failedToAnswer.map((person) => (
-                  <h4>{person.name} 💔</h4>
-                ))}
+
+                <h2>Failed to answer:</h2>
+                <h4>
+                  {failedToAnswer.map((person) => person.name).join(", ")}
+                  💔
+                </h4>
+
                 {completedForm && (
-                  <button className="bubble-button" onClick={startNextQuestion}>
+                  <button
+                    className="bubble-button border-radius"
+                    onClick={startNextQuestion}
+                  >
                     Start next question
                   </button>
                 )}
@@ -114,7 +152,7 @@ const SocketExample = ({
             )}
             {phase === 2 && (
               <>
-                <h4>Quiz Complete!</h4>
+                <h1>Quiz Complete!</h1>
                 <Podium />
               </>
             )}
