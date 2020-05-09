@@ -13,7 +13,7 @@ const SocketExample = ({ lobby, currentQuestion, phase }) => {
           .sort((a, b) => b.score - a.score)
           .map((item, index) => (
             <>
-              <div className="col-xs-8" key={item.name}>
+              <div className="col-xs-8 is-grey" key={item.name}>
                 <h4 className="margin-0 margin-2-b">
                   <strong>{index + 1}.</strong> {item.name}{" "}
                   {currentQuestion &&
@@ -23,7 +23,7 @@ const SocketExample = ({ lobby, currentQuestion, phase }) => {
                     : ""}
                 </h4>
               </div>
-              <div className="col-xs-4 text-align-center">
+              <div className="col-xs-4 text-align-center is-grey">
                 <h4 className="margin-0 margin-2-b">
                   <strong>{item.score}</strong>
                 </h4>
