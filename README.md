@@ -18,12 +18,24 @@ Master starts the quiz ✅
 - Master starts question 1 ✅
 - Players enter an answer to question 1 ✅
 - Each player submits an answer to question 1 ✅
-- All players have submitted an answer or master ends question phase. 
+- All players have submitted an answer or master ends question phase. ✅
 - Master marks question 1
   - All participants can see answer ✅
-  - Master sets correct or incorrect for each player’s response
+  - Master sets correct or incorrect for each player’s response ✅
 - Master moves on to question 2 ✅
-- Players’ scores are updated
+  - Players’ scores are updated ✅
+- All questions answered
+  - Game complete shows ✅
+  - Everyone can see the final scores  ✅
+  - 
+
+
+# Getting ready to go live
+
+- Firebase hosting
+- heroku app
+- Qol Seo
+-
 
 
 ## Known bugs

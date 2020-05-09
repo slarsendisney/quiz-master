@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from "redux";
 import createSocketIoMiddleware from "redux-socket.io";
 import io from "socket.io-client";
-let socket = io("http://localhost:3000");
+let socket = io("https://quizy-socket-server.herokuapp.com/");
 
 let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
@@ -14,6 +14,7 @@ function reducer(
   },
   action
 ) {
+  console.log(action);
   switch (action.type) {
     case "gameState":
       return Object.assign({}, { ...state, ...action.data });

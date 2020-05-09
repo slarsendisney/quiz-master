@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import Podium from "./Podium";
 
 const SocketExample = ({
   gameStarted,
@@ -24,7 +25,7 @@ const SocketExample = ({
         (person) => !person.responses[currentQuestion.questionNumber - 1]
       )
     );
-  }, []);
+  }, [lobby]);
   console.log({ answered, failedToAnswer, lobby });
   const setCorrect = (index, isCorrect) => {
     let newAnswered = [...answered];
@@ -35,8 +36,9 @@ const SocketExample = ({
   };
   const completedForm = answered.every(
     (person) =>
+      person.responses[currentQuestion.questionNumber - 1] &&
       typeof person.responses[currentQuestion.questionNumber - 1].correct !==
-      "undefined"
+        "undefined"
   );
   const startNextQuestion = () => {
     submitMarks([...answered, ...failedToAnswer]);
@@ -51,7 +53,7 @@ const SocketExample = ({
           </button>
         ) : (
           <>
-            {phase === 0 ? (
+            {phase === 0 && (
               <>
                 <h4>Current Question</h4>
                 <h2>{`${currentQuestion.questionNumber}. ${currentQuestion.question}`}</h2>
@@ -59,7 +61,8 @@ const SocketExample = ({
                   End current question
                 </button>
               </>
-            ) : (
+            )}
+            {phase === 1 && (
               <>
                 <h4>Submissions:</h4>
                 {answered.map((person, index) => (
@@ -76,7 +79,7 @@ const SocketExample = ({
                       .correct === "undefined" ? (
                       <div>
                         <button
-                          className="btn pad-2 border-radius is-green-bg"
+                          className="btn pad-2 border-radius is-green-bg margin-1-r"
                           onClick={() => setCorrect(index, true)}
                         >
                           True
@@ -107,6 +110,12 @@ const SocketExample = ({
                     Start next question
                   </button>
                 )}
+              </>
+            )}
+            {phase === 2 && (
+              <>
+                <h4>Quiz Complete!</h4>
+                <Podium />
               </>
             )}
           </>

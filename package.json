@@ -56,7 +56,7 @@
     "build": "gatsby build && node server/index.js",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "concurrently 'npm run hello && gatsby develop -o -p 5051' 'supervisor --watch server/index.js server/index.js'",
+    "start": "npm run hello && gatsby develop -o",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \"",
     "hello": "node scripts/hello.js"

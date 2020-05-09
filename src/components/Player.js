@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import Podium from "./Podium";
 
 const Question = ({ question, questionNumber, submission }) => {
   const [questionInput, setQuestionInput] = useState("");
@@ -63,7 +64,7 @@ const SocketExample = ({
             </>
           ) : (
             <>
-              {phase === 0 ? (
+              {phase === 0 && (
                 <>
                   {!submitted ? (
                     <Question
@@ -74,10 +75,17 @@ const SocketExample = ({
                     <h4>Thanks for your submission!</h4>
                   )}
                 </>
-              ) : (
+              )}
+              {phase === 1 && (
                 <>
                   <h4>The answer was...</h4>
                   <h1>{currentQuestion.answer}</h1>
+                </>
+              )}
+              {phase === 2 && (
+                <>
+                  <h4>Quiz Complete!</h4>
+                  <Podium />
                 </>
               )}
             </>
