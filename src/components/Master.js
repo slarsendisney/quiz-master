@@ -50,7 +50,7 @@ const SocketExample = ({
         {!gameStarted ? (
           <>
             <h1 className="margin-0 margin-5-b">
-              When you're lobby has everyone in it, start the game!
+              When your lobby has everyone in it, start the game!
             </h1>
             <button className="bubble-button border-radius" onClick={startGame}>
               START GAME
